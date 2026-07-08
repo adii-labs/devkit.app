@@ -1,0 +1,817 @@
+/* ============================================================
+   STYLE.CSS — Common/Reusable styles for all DevKit pages
+   ============================================================ */
+
+/* ---------- RESET & BASE ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-primary: #0b0d15;
+    --bg-secondary: #12161f;
+    --bg-card: #181e2b;
+    --bg-card-hover: #1f2638;
+    --bg-input: #0f121c;
+    --border-color: #505a6e;
+    --border-color-light: #2a3142;
+    --text-primary: #eef2f8;
+    --text-secondary: #9aa4bf;
+    --text-muted: #818eac;
+    --accent-1: #6c5ce7;
+    --accent-2: #00cec9;
+    --accent-3: #fd79a8;
+    --accent-4: #fdcb6e;
+    --gradient-1: linear-gradient(135deg, #6c5ce7, #00cec9);
+    --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --transition: 0.25s ease;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 1.5rem;
+    line-height: 1.5;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ---------- SCROLLBAR ---------- */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-1);
+    border-radius: 10px;
+    cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-2);
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 2rem;
+    background: var(--bg-secondary);
+    border-radius: 60px;
+    border: 1px solid var(--border-color-light);
+    box-shadow: var(--shadow);
+    margin: 0 auto 1.8rem;
+    position: relative;
+    z-index: 50;
+}
+
+.nav-brand a {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.nav-brand a:hover {
+    opacity: 0.8;
+}
+
+.desktop-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    list-style: none;
+}
+
+.nav-btn {
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid var(--border-color-light);
+    border-radius: 40px;
+    text-decoration: none;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    background: var(--accent-1);
+    color: #fff;
+    border-color: var(--accent-1);
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.35);
+    transform: translateY(-2px);
+}
+
+.nav-btn.active,
+.panel-link.active {
+    background: var(--accent-1);
+    color: #fff;
+    border-color: var(--accent-1);
+}
+
+/* ---------- HAMBURGER ---------- */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    gap: 5px;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    z-index: 60;
+}
+
+.hamburger span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.hamburger:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* ---------- SLIDING PANEL ---------- */
+.slide-panel {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-color-light);
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
+    padding: 2.5rem 2rem 2rem;
+    transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.slide-panel.open {
+    right: 0;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.panel-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.panel-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.panel-close:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.panel-menu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    flex: 1;
+}
+
+.panel-link {
+    display: block;
+    padding: 0.9rem 1.2rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: #1a1f2e;
+    border: 1px solid var(--border-color-light);
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all var(--transition);
+    text-align: left;
+}
+
+.panel-link:hover {
+    background: var(--accent-1);
+    border-color: var(--accent-1);
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+    transform: translateX(4px);
+}
+
+.panel-link i {
+    margin-right: 10px;
+    width: 22px;
+    text-align: center;
+    color: #6b768f;
+}
+
+.panel-link:hover i {
+    color: #fff;
+}
+
+/* ---------- TOOL HEADER ---------- */
+.tool-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 0.5rem 0 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+.tool-header .icon-code {
+    font-size: 1.8rem;
+    color: var(--accent-2);
+    background: var(--bg-secondary);
+    padding: 0.2rem 0.7rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color-light);
+}
+
+.tool-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tool-header .badge-version {
+    font-size: 0.7rem;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    padding: 0.15rem 0.8rem;
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+    margin-left: 0.3rem;
+    -webkit-text-fill-color: var(--text-muted);
+}
+
+/* ---------- TOOLBAR ROW 1 ---------- */
+.toolbar-row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--radius);
+    padding: 0.8rem 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- TOOLBAR ROW 2 ---------- */
+.toolbar-row2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border-color-light);
+    background: var(--bg-card);
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+}
+
+.tabs-group {
+    display: flex;
+    gap: 0.3rem;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.actions-group {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* ---------- BUTTONS ---------- */
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.action-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-1);
+    color: var(--text-primary);
+}
+
+.action-btn.primary {
+    background: var(--gradient-1);
+    border-color: transparent;
+    color: #fff;
+}
+
+.action-btn.primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+}
+
+.action-btn i {
+    font-size: 0.9rem;
+}
+
+.action-btn .label {
+    display: inline;
+}
+
+/* ---------- TABS ---------- */
+.tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.tab-btn:hover {
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+}
+
+.tab-btn.active {
+    background: var(--gradient-1);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.35);
+}
+
+.tab-btn.active:hover {
+    transform: scale(1.03);
+}
+
+.tab-btn i {
+    font-size: 0.9rem;
+}
+
+.tab-btn .badge-tab {
+    font-size: 0.55rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.05rem 0.5rem;
+    border-radius: 20px;
+    color: var(--text-muted);
+}
+
+.tab-btn.active .badge-tab {
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ---------- TABS CONTAINER & CONTENT (Common) ---------- */
+.tabs-container {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.tab-content {
+    display: none;
+    min-height: 80dvh;
+    height: auto;
+    background: var(--bg-input);
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- EMPTY STATE ---------- */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--border-color-light);
+}
+
+.empty-state p {
+    font-size: 0.95rem;
+    max-width: 400px;
+}
+
+/* ---------- TOAST (Common) ---------- */
+.custom-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color-light);
+    border-radius: 12px;
+    padding: 0.8rem 1.8rem;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    animation: slideUp 0.4s ease;
+    max-width: 90vw;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ---------- ABOUT DEVKIT ---------- */
+.about-devkit {
+    margin-top: 3.5rem;
+    padding: 2.5rem 2rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color-light);
+}
+
+.about-inner {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.about-text {
+    flex: 2;
+    min-width: 250px;
+}
+
+.about-text h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.3px;
+}
+
+.about-text h2 i {
+    color: var(--accent-2);
+    margin-right: 0.4rem;
+}
+
+.about-text p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.5rem;
+}
+
+.about-tags span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.about-tags span i {
+    color: var(--accent-1);
+}
+
+.about-stats-box {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    justify-content: space-around;
+    background: var(--bg-card);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem 0.5rem;
+    border: 1px solid var(--border-color-light);
+    text-align: center;
+}
+
+.about-stats-box div span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-stats-box div small {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+    font-size: 0.8rem;
+}
+
+.footer-links a:hover {
+    color: var(--accent-1);
+}
+
+.footer .made-with {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.footer .made-with i {
+    color: var(--accent-3);
+}
+
+/* ---------- UTILITY ---------- */
+.hidden {
+    display: none !important;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    body {
+        padding: 0.8rem;
+    }
+
+    .desktop-menu {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar {
+        padding: 0.6rem 1.2rem;
+        border-radius: 40px;
+        margin-bottom: 1rem;
+    }
+
+    .nav-brand a {
+        font-size: 1.4rem;
+    }
+
+    .slide-panel {
+        width: 280px;
+        padding: 1.5rem 1.2rem;
+    }
+
+    .panel-link {
+        font-size: 0.95rem;
+        padding: 0.7rem 1rem;
+    }
+
+    .tool-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .tool-header .icon-code {
+        font-size: 1.4rem;
+        padding: 0.15rem 0.5rem;
+    }
+
+    .toolbar-row2 {
+        flex-wrap: nowrap;
+        gap: 0.3rem;
+        overflow-x: auto;
+    }
+
+    .tab-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .tab-btn .badge-tab {
+        display: none;
+    }
+
+    .action-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .tab-content {
+        height: 70dvh;
+    }
+
+    .about-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-tags {
+        justify-content: center;
+    }
+
+    .about-stats-box {
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.4rem 0.8rem;
+        border-radius: 30px;
+    }
+
+    .nav-brand a {
+        font-size: 1.2rem;
+    }
+
+    .slide-panel {
+        width: 290px;
+        padding: 2rem 1.2rem;
+    }
+
+    .panel-link {
+        font-size: 0.95rem;
+        padding: 0.8rem 1rem;
+    }
+
+    .tool-header h1 {
+        font-size: 1.1rem;
+    }
+
+    .tool-header .icon-code {
+        font-size: 1.1rem;
+        padding: 0.1rem 0.4rem;
+    }
+
+    .tool-header .badge-version {
+        font-size: 0.6rem;
+        padding: 0.1rem 0.5rem;
+    }
+
+    .tab-btn {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.65rem;
+    }
+
+    .tab-btn i {
+        font-size: 0.7rem;
+    }
+
+    .action-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.65rem;
+    }
+
+    .tab-content {
+        height: 60dvh;
+    }
+}
+
+@media (max-height: 500px) {
+    .slide-panel {
+        padding: 1.2rem 1rem;
+    }
+
+    .panel-header {
+        margin-bottom: 1.2rem;
+    }
+
+    .panel-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .panel-menu {
+        gap: 0.4rem;
+    }
+}
