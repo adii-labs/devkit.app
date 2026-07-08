@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevKit — JSON Formatter</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Shared + Page-specific CSS -->
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="#">DevKit</a>
+            </div>
+            <ul class="desktop-menu">
+                <li><a href="/" class="nav-btn active">Home</a></li>
+                <li><a href="#" class="nav-btn">Support</a></li>
+                <li><a href="#" class="nav-btn">Contact Us</a></li>
+            </ul>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- ====== SLIDING PANEL ====== -->
+        <div class="slide-panel" id="slidePanel">
+            <div class="panel-header">
+                <span class="panel-brand"><i class="fas fa-code"></i> DevKit</span>
+                <button class="panel-close" id="panelCloseBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="panel-menu">
+                <li><a href="/" class="panel-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" class="panel-link"><i class="fas fa-life-ring"></i> Support</a></li>
+                <li><a href="#" class="panel-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- ====== TOOL HEADER ====== -->
+        <div class="tool-header">
+            <span class="icon-code"><i class="fas fa-code"></i></span>
+            <h1>JSON Formatter</h1>
+            <span class="badge-version">v1.0</span>
+        </div>
+
+        <!-- ====== TOOLBAR ROW 1 ====== -->
+        <div class="toolbar-row1">
+            <button class="action-btn" id="uploadBtn" title="Upload JSON file">
+                <i class="fas fa-upload"></i> <span class="label">Upload</span>
+            </button>
+            <button class="action-btn primary" id="downloadBtn" title="Download formatted JSON">
+                <i class="fas fa-download"></i> <span class="label">Download</span>
+            </button>
+            <input type="file" id="fileInput" accept=".json" style="display: none;" />
+        </div>
+
+        <!-- ====== TABS ====== -->
+        <div class="tabs-container">
+            <div class="toolbar-row2">
+                <div class="tabs-group">
+                    <button class="tab-btn active" data-tab="editor">
+                        <i class="fas fa-pen-to-square"></i> Editor
+                    </button>
+                    <button class="tab-btn" data-tab="code">
+                        <i class="fas fa-code"></i> Code
+                    </button>
+                    <button class="tab-btn" data-tab="tree">
+                        <i class="fas fa-diagram-project"></i> Tree
+                    </button>
+                </div>
+                <div class="actions-group">
+                    <button class="action-btn" id="copyBtn" title="Copy formatted JSON">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="action-btn" id="clearBtn" title="Clear all">
+                        <i class="fas fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="tab-content active" id="tab-editor">
+                <div class="editor-area">
+                    <textarea id="jsonInput" placeholder='Paste your JSON here… e.g. {"name": "DevKit", "version": 1.0}'
+                        spellcheck="false"></textarea>
+                    <div class="editor-status">
+                        <div class="status-msg">
+                            <span class="dot idle" id="statusDot"></span>
+                            <span id="statusText">Ready</span>
+                        </div>
+                        <div>
+                            <span id="charCount">0</span> characters
+                            <span style="margin: 0 0.5rem;">·</span>
+                            <span id="lineCount">0</span> lines
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-code">
+                <div id="codeDisplay" class="code-display">
+                    <div class="empty-state">
+                        <i class="fas fa-code"></i>
+                        <p>No JSON to display. Paste some JSON in the <strong>Editor</strong> tab.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-tree">
+                <div id="tree-display">
+                    <span style="color:#6b768f;">Output will appear here…</span>
+                </div>
+            </div>
+        </div>
+        <!-- ====== ABOUT DEVKIT ====== -->
+        <section class="about-devkit" id="about-devkit">
+            <div class="about-inner">
+                <div class="about-text">
+                    <h2><i class="fas fa-code"></i> Built for Developers, by Developers</h2>
+                    <p>
+                        DevKit is a curated suite of <strong>100+ developer tools</strong> crafted to make your daily
+                        workflow faster, cleaner, and more private. From formatting JSON and viewing SQL databases to
+                        generating
+                        QR codes and hashing strings — every tool runs entirely <strong>client-side</strong> in your
+                        browser,
+                        ensuring your sensitive data never touches any server.
+                    </p>
+                    <div class="about-tags">
+                        <span><i class="fas fa-shield-alt"></i> Privacy First</span>
+                        <span><i class="fas fa-bolt"></i> Blazing Fast</span>
+                        <span><i class="fas fa-heart" style="color:var(--accent-3);"></i> Made in India</span>
+                        <span><i class="fas fa-code-branch"></i> Open Source</span>
+                    </div>
+                </div>
+                <div class="about-stats-box">
+                    <div><span>100+</span><small>Tools</small></div>
+                    <div><span>0</span><small>Server Requests</small></div>
+                    <div><span>∞</span><small>Free to Use</small></div>
+                </div>
+            </div>
+        </section>
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer">
+            <div class="made-with">
+                <i class="fas fa-heart"></i> DevKit &bull; 100+ tools for developers
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fa-solid fa-circle-info"></i> About</a>
+                <a href="#"><i class="fas fa-blog"></i> Blog</a>
+                <a href="#"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <span style="font-size: 0.7rem; opacity: 0.5;">&copy; 2026 DevKit</span>
+        </footer>
+
+    </div>
+
+    <!-- ====== JAVASCRIPT (full tool logic) ====== -->
+    <script src="../nav.js"></script>
+    <script src="../utils.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

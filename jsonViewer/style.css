@@ -1,0 +1,242 @@
+/* ============================================================
+   JSON VIEWER — TOOL-SPECIFIC STYLES ONLY
+   ============================================================
+   Everything common (tabs, toast, buttons, etc.) is in root style.css
+   ============================================================ */
+
+/* ----- EDITOR AREA (Unique to JSON) ----- */
+.editor-area textarea {
+    width: 100%;
+    height: calc(80dvh - 50px);
+    background: var(--bg-input);
+    border: none;
+    padding: 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: var(--transition);
+    line-height: 1.7;
+    tab-size: 2;
+    resize: none;
+    scrollbar-width: none;
+}
+
+.editor-area textarea:focus {
+    border-color: var(--accent-1);
+    box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+}
+
+.editor-area textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* ----- EDITOR STATUS (Unique to JSON) ----- */
+.editor-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.6rem 0.8rem 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color-light);
+}
+
+.editor-status .status-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.editor-status .status-msg .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.editor-status .status-msg .dot.idle {
+    background: var(--text-muted);
+}
+
+.editor-status .status-msg .dot.valid {
+    background: var(--accent-2);
+}
+
+.editor-status .status-msg .dot.invalid {
+    background: var(--accent-3);
+}
+
+/* ----- CODE TAB — Syntax Highlighting (Unique to JSON) ----- */
+.code-display {
+    background: var(--bg-input);
+    padding: 1.2rem;
+    overflow: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: var(--text-primary);
+    height: 80dvh;
+}
+
+.code-display .json-key {
+    color: var(--accent-4);
+}
+
+.code-display .json-string {
+    color: var(--accent-2);
+}
+
+.code-display .json-number {
+    color: var(--accent-3);
+}
+
+.code-display .json-boolean {
+    color: var(--accent-1);
+}
+
+.code-display .json-null {
+    color: var(--text-secondary);
+}
+
+.code-display .json-bracket {
+    color: var(--text-primary);
+}
+
+.code-display .json-comma {
+    color: #6b768f;
+}
+
+.code-display .json-colon {
+    color: #6b768f;
+}
+
+/* ----- TREE TAB (Unique to JSON) ----- */
+#tree-display {
+    padding: 15px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    margin-top: 0;
+    color: var(--text-primary);
+}
+
+.tree-node {
+    margin-left: 0;
+    line-height: 1.5;
+}
+
+.children-container {
+    margin-left: 20px;
+    border-left: 1px dotted #979797;
+    padding-left: 10px;
+    display: block;
+}
+
+.children-container.hidden {
+    display: none;
+}
+
+.toggle-arrow {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 5px;
+    color: var(--accent-2);
+    transition: transform 0.2s;
+    font-size: 12px;
+}
+
+.toggle-arrow.collapsed {
+    transform: rotate(-90deg);
+}
+
+.key {
+    color: var(--accent-4);
+    font-weight: bold;
+}
+
+.separator {
+    color: #6b768f;
+    font-weight: bold;
+}
+
+.string {
+    color: var(--accent-2);
+}
+
+.number {
+    color: var(--accent-3);
+}
+
+.boolean {
+    color: var(--accent-1);
+}
+
+.null {
+    color: var(--text-secondary);
+}
+
+.bracket-info {
+    color: var(--text-primary);
+    font-size: 0.9em;
+}
+
+.node-header {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+/* ----- RESPONSIVE (JSON-specific) ----- */
+@media (max-width: 768px) {
+    .editor-area textarea {
+        height: calc(70dvh - 50px);
+        font-size: 0.8rem;
+        padding: 0.8rem;
+    }
+
+    .code-display {
+        height: 70dvh;
+    }
+
+    #tree-display {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .children-container {
+        margin-left: 14px;
+        padding-left: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .editor-area textarea {
+        height: calc(60dvh - 50px);
+        min-height: 150px;
+        font-size: 0.75rem;
+    }
+
+    .code-display {
+        height: 60dvh;
+    }
+
+    #tree-display {
+        font-size: 11px;
+        padding: 8px;
+        max-height: 220px;
+    }
+
+    .children-container {
+        margin-left: 10px;
+        padding-left: 4px;
+    }
+}

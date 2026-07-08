@@ -1,0 +1,786 @@
+/* ============================================================
+   SQL VIEWER — TOOL-SPECIFIC STYLES ONLY
+   ============================================================
+   Everything common (tabs, toast, buttons, etc.) is in root style.css
+   ============================================================ */
+
+/* ----- PK COLORS (Unique to SQL) ----- */
+:root {
+    --pk-color: #fdcb6e;
+    --pk-bg: #4e3d2b;
+}
+
+/* ----- TOOLBAR ROW 1 (SQL-specific: left/right groups) ----- */
+.toolbar-row1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color-light);
+    padding: 0.6rem 1.5rem;
+    flex-wrap: wrap;
+}
+
+.toolbar-row1 .left-group {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+}
+
+.toolbar-row1 .right-group {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    position: relative;
+}
+
+/* ----- DELETE DROPDOWN (SQL-specific) ----- */
+.delete-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    min-width: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: var(--shadow);
+    z-index: 100;
+    display: none;
+    padding: 0.3rem 0;
+}
+
+.delete-dropdown.open {
+    display: block;
+}
+
+.delete-dropdown .dropdown-item {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: var(--transition);
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.delete-dropdown .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.delete-dropdown .dropdown-item:hover {
+    background: var(--bg-card-hover);
+    color: var(--accent-3);
+}
+
+.delete-dropdown .dropdown-item i {
+    color: var(--accent-3);
+    font-size: 0.8rem;
+}
+
+.delete-dropdown .dropdown-item .file-size {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+}
+
+.delete-dropdown .dropdown-empty {
+    padding: 0.8rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+/* ----- MENU BAR (SQL-specific) ----- */
+.menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color-light);
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+}
+
+.menu-bar .menu-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.menu-bar .menu-group label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.menu-bar .menu-group select {
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.35rem 1.8rem 0.35rem 0.8rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    outline: none;
+    min-width: 120px;
+    max-width: 200px;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239aa4bf' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 30px;
+}
+
+.menu-bar .menu-group select:focus {
+    border-color: var(--accent-1);
+}
+
+.menu-bar .menu-group select option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+.menu-bar .actions-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.menu-bar .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 40px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.menu-bar .action-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-1);
+    color: var(--text-primary);
+}
+
+.menu-bar .action-btn.primary {
+    background: var(--gradient-1);
+    border-color: transparent;
+    color: #fff;
+}
+
+.menu-bar .action-btn.primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+}
+
+.menu-bar .action-btn.danger:hover {
+    border-color: var(--accent-3);
+    color: var(--accent-3);
+}
+
+.menu-bar .action-btn.delete-sm {
+    padding: 0.25rem 0.7rem;
+    font-size: 0.7rem;
+}
+
+.menu-bar .action-btn.delete-sm:hover {
+    border-color: var(--accent-3);
+    color: var(--accent-3);
+}
+
+/* ----- TABLE WRAPPER (SQL-specific) ----- */
+.table-wrapper {
+    flex: 1;
+    overflow: auto;
+    padding: 0.8rem;
+    background: var(--bg-input);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.table-wrapper.dragover {
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 3px rgba(0, 206, 201, 0.2), inset 0 0 0 1px rgba(0, 206, 201, 0.1);
+    background: var(--bg-card-hover);
+}
+
+/* ----- TABLE CONTAINER (SQL-specific) ----- */
+#tableContainer {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+#tableContainer.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ----- TABLE SCROLL WRAPPER (SQL-specific) ----- */
+.table-scroll-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    position: relative;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-corner {
+    background: var(--bg-input);
+}
+
+.table-scroll-wrapper::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: var(--accent-1);
+    border-radius: 4px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-2);
+}
+
+/* ----- RESULT TABLE (SQL-specific) ----- */
+.result-table {
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    width: auto;
+    min-width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+}
+
+.result-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+.result-table th {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 2px solid var(--border-color);
+    white-space: nowrap;
+    min-width: 60px;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background 0.2s;
+    border-right: 1px solid var(--border-color-light);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.result-table th:last-child {
+    border-right: none;
+}
+
+.result-table th:hover {
+    background: var(--bg-card-hover);
+}
+
+.result-table th.pk-column {
+    background: var(--pk-bg);
+    color: var(--pk-color);
+    border-bottom-color: var(--pk-color);
+}
+
+.result-table th.pk-column:hover {
+    background: #645539;
+}
+
+.result-table td {
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--border-color-light);
+    vertical-align: middle;
+    max-width: 250px;
+    min-width: 60px;
+    position: relative;
+    border-right: 1px solid var(--border-color-light);
+    background: var(--bg-input);
+}
+
+.result-table td:last-child {
+    border-right: none;
+}
+
+.result-table td.pk-column {
+    background: var(--pk-bg);
+}
+
+.result-table td.pk-column .cell-content {
+    color: var(--pk-color);
+}
+
+.result-table td .cell-content {
+    max-width: 250px;
+    overflow: auto;
+    white-space: nowrap;
+    padding: 0.1rem 0;
+    min-height: 1.4rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-1) transparent;
+    cursor: pointer;
+}
+
+.result-table td .cell-content::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+}
+
+.result-table td .cell-content::-webkit-scrollbar-thumb {
+    background: var(--accent-1);
+    border-radius: 4px;
+}
+
+.result-table td .cell-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.result-table td .cell-content:hover {
+    background: rgba(108, 92, 231, 0.08);
+    border-radius: 2px;
+}
+
+.result-table tr:hover td {
+    background: var(--bg-card-hover);
+}
+
+.result-table tr:hover td.pk-column {
+    background: rgba(253, 203, 110, 0.25);
+}
+
+.result-table .null {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ----- COLUMN POPUP (SQL-specific) ----- */
+.column-popup {
+    position: fixed;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.2rem;
+    min-width: 240px;
+    max-width: 320px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    display: none;
+    animation: popupFade 0.2s ease;
+}
+
+.column-popup.open {
+    display: block;
+}
+
+@keyframes popupFade {
+    from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.column-popup .popup-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 0.4rem;
+}
+
+.column-popup .popup-title .col-name {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.column-popup .popup-search {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+}
+
+.column-popup .popup-search input {
+    flex: 1;
+    background: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    outline: none;
+    min-width: 0;
+}
+
+.column-popup .popup-search input:focus {
+    border-color: var(--accent-1);
+    box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.2);
+}
+
+.column-popup .popup-search input::placeholder {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+.column-popup .popup-search .apply-btn {
+    background: var(--gradient-1);
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0.35rem 0.7rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+}
+
+.column-popup .popup-search .apply-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(108, 92, 231, 0.4);
+}
+
+.column-popup .popup-sort {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.column-popup .popup-sort .sort-btn {
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 4px;
+    padding: 0.25rem 0.7rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+    font-family: inherit;
+}
+
+.column-popup .popup-sort .sort-btn:hover {
+    border-color: var(--accent-1);
+    color: var(--text-primary);
+    background: var(--bg-card-hover);
+}
+
+.column-popup .popup-sort .sort-btn.active {
+    border-color: var(--accent-2);
+    color: var(--accent-2);
+    background: rgba(0, 206, 201, 0.1);
+}
+
+.column-popup .popup-actions {
+    display: flex;
+    gap: 0.4rem;
+    border-top: 1px solid var(--border-color-light);
+    padding-top: 0.5rem;
+}
+
+.column-popup .popup-actions .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    border-radius: 4px;
+    padding: 0.25rem 0.8rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+}
+
+.column-popup .popup-actions .reset-btn:hover {
+    border-color: var(--accent-3);
+    color: var(--accent-3);
+    background: rgba(253, 121, 168, 0.08);
+}
+
+.column-popup .popup-actions .info-text {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.column-popup .popup-actions .info-text i {
+    font-size: 0.5rem;
+}
+
+/* ----- LOAD MORE (SQL-specific) ----- */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    padding: 0.8rem 0 0.4rem;
+    flex-shrink: 0;
+}
+
+.load-more-container .load-more-btn {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    border-radius: 30px;
+    padding: 0.4rem 1.8rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    font-weight: 500;
+}
+
+.load-more-container .load-more-btn:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--accent-1);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.load-more-container .load-more-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.load-more-container .load-more-btn.hidden {
+    display: none;
+}
+
+/* ----- TABLE STATUS (SQL-specific) ----- */
+.table-status {
+    flex-shrink: 0;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color-light);
+    background: var(--bg-secondary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.table-status .status-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.table-status .status-msg .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.table-status .status-msg .dot.idle {
+    background: var(--text-muted);
+}
+
+.table-status .status-msg .dot.valid {
+    background: var(--accent-2);
+}
+
+.table-status .status-msg .dot.invalid {
+    background: var(--accent-3);
+}
+
+.table-status .status-right {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.table-status .status-right .sep {
+    color: var(--border-color);
+}
+
+/* ----- RESPONSIVE (SQL-specific) ----- */
+@media (max-width: 768px) {
+    .toolbar-row1 {
+        padding: 0.4rem 0.8rem;
+    }
+
+    .menu-bar {
+        padding: 0.3rem 0.6rem;
+        gap: 0.4rem;
+    }
+
+    .menu-bar .menu-group select {
+        font-size: 0.7rem;
+        padding: 0.25rem 1.6rem 0.25rem 0.6rem;
+        min-width: 80px;
+        max-width: 140px;
+    }
+
+    .menu-bar .menu-group label {
+        font-size: 0.6rem;
+    }
+
+    .menu-bar .action-btn {
+        padding: 0.2rem 0.6rem;
+        font-size: 0.7rem;
+    }
+
+    .result-table {
+        font-size: 0.75rem;
+    }
+
+    .result-table th,
+    .result-table td {
+        padding: 0.3rem 0.4rem;
+        max-width: 150px;
+        min-width: 50px;
+    }
+
+    .result-table td .cell-content {
+        max-width: 200px;
+    }
+
+    .delete-dropdown {
+        min-width: 160px;
+        right: 0;
+        left: auto;
+    }
+
+    .column-popup {
+        min-width: 180px;
+        max-width: 260px;
+        padding: 0.8rem 1rem;
+    }
+
+    .column-popup .popup-search input {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .toolbar-row1 {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.4rem;
+    }
+
+    .toolbar-row1 .left-group,
+    .toolbar-row1 .right-group {
+        justify-content: center;
+    }
+
+    .menu-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.4rem;
+    }
+
+    .menu-bar .menu-group {
+        justify-content: center;
+    }
+
+    .menu-bar .actions-group {
+        justify-content: center;
+    }
+
+    .result-table {
+        font-size: 0.7rem;
+    }
+
+    .result-table th,
+    .result-table td {
+        padding: 0.2rem 0.3rem;
+        max-width: 100px;
+        min-width: 40px;
+    }
+
+    .result-table td .cell-content {
+        max-width: 140px;
+    }
+
+    .delete-dropdown {
+        min-width: 140px;
+        right: 0;
+        left: auto;
+    }
+
+    .table-status {
+        font-size: 0.7rem;
+    }
+
+    .column-popup {
+        min-width: 160px;
+        max-width: 220px;
+        padding: 0.6rem 0.8rem;
+    }
+
+    .column-popup .popup-search {
+        flex-wrap: wrap;
+    }
+
+    .column-popup .popup-search input {
+        min-width: 100px;
+        font-size: 0.65rem;
+    }
+
+    .column-popup .popup-sort .sort-btn {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.5rem;
+    }
+}

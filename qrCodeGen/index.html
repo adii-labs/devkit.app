@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevKit — QR Code Generator</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <!-- QR Code Styling Library (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js">
+    </script>
+
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar">
+            <div class="nav-brand"><a href="/">DevKit</a></div>
+            <ul class="desktop-menu">
+                <li><a href="/" class="nav-btn">Home</a></li>
+                <li><a href="/support" class="nav-btn">Support</a></li>
+                <li><a href="/contact" class="nav-btn">Contact Us</a></li>
+            </ul>
+            <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
+        </nav>
+
+        <!-- ====== SLIDING PANEL ====== -->
+        <div class="slide-panel" id="slidePanel">
+            <div class="panel-header">
+                <span class="panel-brand"><i class="fas fa-code"></i> DevKit</span>
+                <button class="panel-close" id="panelCloseBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="panel-menu">
+                <li><a href="/" class="panel-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/support" class="panel-link"><i class="fas fa-life-ring"></i> Support</a></li>
+                <li><a href="/contact" class="panel-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </div>
+
+        <!-- ====== TOOL HEADER ====== -->
+        <div class="tool-header">
+            <span class="icon-code"><i class="fas fa-qrcode"></i></span>
+            <h1>QR Code Generator</h1>
+            <span class="badge-version">v1.0</span>
+        </div>
+
+        <!-- ====== MAIN APP ====== -->
+        <div class="qr-app">
+            <!-- LEFT PANEL -->
+            <div class="qr-left">
+                <div class="qr-control-group">
+                    <label for="qrType"><i class="fas fa-tag"></i> QR Type</label>
+                    <select id="qrType">
+                        <option value="url"> URL / Website</option>
+                        <option value="text">Plain Text</option>
+                        <option value="wifi">WiFi Hotspot</option>
+                        <option value="upi">UPI / Payment</option>
+                        <option value="email"> Email</option>
+                        <option value="phone">Phone Number</option>
+                        <option value="sms">SMS</option>
+                        <option value="vcard">vCard / Contact</option>
+                        <option value="geo"> Geo Location</option>
+                        <option value="calendar"> Calendar Event</option>
+                    </select>
+                </div>
+
+                <!-- dynmic input for qr data -->
+                <div id="dynamicFields" class="grid-col-2"></div>
+
+                <!-- ===== DESIGN CONTROLS ===== -->
+                <div style="border-top:1px solid var(--border-color-light); margin:1rem 0 0.8rem;"></div>
+
+                <!-- top 2 btn -->
+                <div class="qr-action-row" style="padding: 0 10px;">
+                    <button class="qr-action-btn primary" id="presetsBtn"><i class="fas fa-palette"></i>
+                        Presets</button>
+                    <button class="qr-action-btn" id="defaultResetBtn"><i class="fas fa-undo"></i> Reset</button>
+                </div>
+
+                <!-- Colors -->
+                <div class="qr-control-group">
+                    <label>Colors</label>
+                    <div class="qr-color-row grid-col-2"
+                        style="grid-template-columns: repeat(auto-fit, minmax(calc(50% - 15px), 1fr));">
+                        <div class="color-item">
+                            <label>QR color</label>
+                            <input type="color" id="fgColor" />
+                        </div>
+                        <div class="color-item">
+                            <label>BG color</label>
+                            <input type="color" id="bgColor" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dot Shape -->
+                <div class="qr-control-group grid-col-2">
+                    <div>
+                        <label>Small Dots (Pattern)</label>
+                        <select id="dotsType">
+                            <option value="rounded">rounded</option>
+                            <option value="extra-rounded">extra-rounded</option>
+                            <option value="dots">dots</option>
+                            <option value="classy">classy</option>
+                            <option value="square">square</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Corner Dots (Eyes)</label>
+                        <select id="cornersDotsType">
+                            <option value="extra-rounded">extra-rounded</option>
+                            <option value="square">square</option>
+                            <option value="dot">dot</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- border -->
+                <div class="qr-control-group grid-col-2">
+                    <div class="border-color-item">
+                        <label>Border color</label>
+                        <input type="color" id="borderColor" />
+                    </div>
+                    <div>
+                        <label>border width</label>
+                        <input type="range" id="borderWidth" min="0" max="10" />
+                    </div>
+                    <div>
+                        <label>Border Radius</label>
+                        <input type="range" id="borderRadius" min="0" max="50" />
+                    </div>
+                    <div>
+                        <label>Border gap</label>
+                        <input type="range" id="bordergap" min="1" max="20" />
+                    </div>
+                </div>
+
+                <!-- center logo -->
+                <div id="logoControls" style="padding: 0 0.7rem;">
+                    <!-- Icon Grid -->
+                    <div class="qr-control-group">
+                        <label>Select Icon</label>
+                        <div class="qr-icons-grid" id="iconGrid"></div>
+                        <!-- Logo Size Slider -->
+                        <div class="qr-control-group">
+                            <label for="logoSize">Logo Size <span class="range-value"
+                                    id="logoSizeVal">22%</span></label>
+                            <input type="range" id="logoSize" min="10" max="40" value="22" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div class="qr-right">
+                <div class="qr-result-wrapper" id="resultWrapper">
+                    <!-- Fake QR placeholder (shown when no QR generated) -->
+                    <div class="fake-qr-box" id="resultPlaceholder">
+                        <i class="fas fa-qrcode"></i>
+                        <span class="label">Generate QR to see result</span>
+                        <div class="scan-line"></div>
+                    </div>
+                    <!-- Real QR Canvas -->
+                    <div id="resultCanvas" style="width:100%;height:100%;display:none;"></div>
+                </div>
+                <!-- Generate Button -->
+                <button class="generate-btn" id="generateBtn">
+                    <i class="fas fa-play"></i> Generate QR Code
+                </button>
+                <!-- Download Options -->
+                <div class="download-options" id="downloadOptions">
+                    <button class="action-btn primary" data-format="png">PNG</button>
+                    <button class="action-btn" data-format="jpeg">JPG</button>
+                    <button class="action-btn" data-format="svg">SVG</button>
+                    <button class="action-btn" data-format="webp">WebP</button>
+                    <button class="action-btn" id="copyResultBtn"><i class="fas fa-copy"></i> Copy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ====== FOOTER ====== -->
+        <!-- ABOUT DEVKIT -->
+        <section class="about-devkit" id="about-devkit">
+            <div class="about-inner">
+                <div class="about-text">
+                    <h2><i class="fas fa-code"></i> Built for Developers, by Developers</h2>
+                    <p>
+                        DevKit is a curated suite of <strong>100+ developer tools</strong> crafted to make your daily
+                        workflow
+                        faster, cleaner, and more private. From formatting JSON and viewing SQL databases to generating
+                        QR codes
+                        and hashing strings — every tool runs entirely <strong>client-side</strong> in your browser,
+                        ensuring your sensitive data never touches any server.
+                    </p>
+                    <div class="about-tags">
+                        <span><i class="fas fa-shield-alt"></i> Privacy First</span>
+                        <span><i class="fas fa-bolt"></i> Blazing Fast</span>
+                        <span><i class="fas fa-heart" style="color:var(--accent-3);"></i> Made in India</span>
+                        <span><i class="fas fa-code-branch"></i> Open Source</span>
+                    </div>
+                </div>
+                <div class="about-stats-box">
+                    <div><span>100+</span><small>Tools</small></div>
+                    <div><span>0</span><small>Server Requests</small></div>
+                    <div><span>∞</span><small>Free to Use</small></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="made-with"><i class="fas fa-heart"></i> DevKit &bull; 100+ tools for developers</div>
+            <div class="footer-links">
+                <a href="/"><i class="fa-solid fa-circle-info"></i> About</a>
+                <a href="#"><i class="fas fa-blog"></i> Blog</a>
+                <a href="https://github.com/adii-labs/" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="/contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <span style="font-size:0.7rem;opacity:0.5;">&copy; 2026 DevKit</span>
+        </footer>
+
+    </div>
+
+    <!-- PRESETS MODAL -->
+    <div class="preset-modal" id="presetModal">
+        <div class="preset-modal-content">
+            <h2><i class="fas fa-palette"></i> Choose a Preset</h2>
+            <div class="preset-grid" id="presetGrid"></div>
+            <button class="close-preset-btn" id="closePresetBtn">Close</button>
+        </div>
+    </div>
+
+    <script src="../nav.js"></script>
+    <script src="../utils.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

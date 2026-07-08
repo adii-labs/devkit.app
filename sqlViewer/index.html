@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DevKit — SQL Viewer</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- ====== NAVBAR ====== -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <a href="/">DevKit</a>
+            </div>
+            <ul class="desktop-menu">
+                <li><a href="/" class="nav-btn active">Home</a></li>
+                <li><a href="#" class="nav-btn">Support</a></li>
+                <li><a href="#" class="nav-btn">Contact Us</a></li>
+            </ul>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+
+        <!-- ====== SLIDING PANEL ====== -->
+        <div class="slide-panel" id="slidePanel">
+            <div class="panel-header">
+                <span class="panel-brand"><i class="fas fa-code"></i> DevKit</span>
+                <button class="panel-close" id="panelCloseBtn"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="panel-menu">
+                <li><a href="#" class="panel-link"><i class="fas fa-life-ring"></i> Support</a></li>
+                <li><a href="#" class="panel-link"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            </ul>
+        </div>
+
+        <!-- ====== TOOL HEADER ====== -->
+        <div class="tool-header">
+            <span class="icon-code"><i class="fas fa-database"></i></span>
+            <h1>SQL Viewer</h1>
+            <span class="badge-version">v1.0</span>
+        </div>
+
+        <!-- ====== MAIN TOOL ====== -->
+        <div class="tabs-container">
+
+            <!-- ===== TOOLBAR ROW 1 ===== -->
+            <div class="toolbar-row1">
+                <div class="left-group">
+                    <button class="action-btn primary" id="uploadBtn">
+                        <i class="fas fa-upload"></i> Upload DB
+                    </button>
+                    <input type="file" id="fileInput" accept=".db,.sqlite,.sqlite3" style="display:none" multiple />
+                </div>
+                <div class="right-group">
+                    <button class="action-btn danger" id="deleteFileBtn" title="Delete files">
+                        <i class="fas fa-trash-can"></i> Delete
+                    </button>
+                    <!-- Delete Dropdown -->
+                    <div class="delete-dropdown" id="deleteDropdown">
+                        <div class="dropdown-empty">No files to delete</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TOOLBAR ROW 2 (Tabs) ===== -->
+            <div class="toolbar-row2">
+                <div class="tabs-group">
+                    <button class="tab-btn active" data-tab="table">
+                        <i class="fas fa-table"></i> Table
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== TAB CONTENT: Table ===== -->
+            <div class="tab-content active" id="tab-table">
+
+                <!-- Menu Bar (only for Table tab) -->
+                <div class="menu-bar" id="tableMenu">
+                    <div class="menu-group">
+                        <label for="fileSelect"><i class="fas fa-file"></i> File</label>
+                        <select id="fileSelect" title="Select database file"></select>
+
+                        <label for="tableSelect"><i class="fas fa-table"></i> Table</label>
+                        <select id="tableSelect" title="Select table"></select>
+                    </div>
+                    <div class="actions-group">
+                        <button class="action-btn delete-sm danger" id="deleteSelectedBtn" title="Delete selected file">
+                            <i class="fas fa-trash-can"></i>
+                        </button>
+                        <button class="action-btn" id="exportCsvBtn" title="Export table as CSV">
+                            <i class="fas fa-file-csv"></i> CSV
+                        </button>
+                        <button class="action-btn" id="exportJsonBtn" title="Export table as JSON">
+                            <i class="fas fa-file-code"></i> JSON
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table Display -->
+                <div class="table-wrapper" id="tableWrapper">
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState">
+                        <i class="fas fa-database"></i>
+                        <div class="upload-zone" id="dropZone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p><strong>Upload SQLite Database</strong></p>
+                            <p class="sub">Click or drag &amp; drop .db / .sqlite / .sqlite3</p>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--text-muted);">Supported: SQLite 3 files</p>
+                    </div>
+
+                    <!-- Table Container -->
+                    <div id="tableContainer">
+                        <div class="table-scroll-wrapper" id="tableScrollWrapper">
+                            <!-- Table will be rendered here -->
+                        </div>
+                        <!-- Load More -->
+                        <div class="load-more-container" id="loadMoreContainer">
+                            <button class="load-more-btn hidden" id="loadMoreBtn">Load Next 1000 Rows</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Status -->
+                <div class="table-status" id="tableStatus">
+                    <div class="status-msg">
+                        <span class="dot idle" id="statusDot"></span>
+                        <span class="status-text" id="statusText"></span>
+                    </div>
+                    <div class="status-right">
+                        <span id="rowCount">0</span> rows
+                        <span class="sep">·</span>
+                        <span id="colCount">0</span> columns
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- ====== ABOUT DEVKIT ====== -->
+        <section class="about-devkit" id="about-devkit">
+            <div class="about-inner">
+                <div class="about-text">
+                    <h2><i class="fas fa-code"></i> Built for Developers, by Developers</h2>
+                    <p>
+                        DevKit is a curated suite of <strong>100+ developer tools</strong> crafted to make your daily
+                        workflow faster, cleaner, and more private. From formatting JSON and viewing SQL databases to
+                        generating
+                        QR codes and hashing strings — every tool runs entirely <strong>client-side</strong> in your
+                        browser,
+                        ensuring your sensitive data never touches any server.
+                    </p>
+                    <div class="about-tags">
+                        <span><i class="fas fa-shield-alt"></i> Privacy First</span>
+                        <span><i class="fas fa-bolt"></i> Blazing Fast</span>
+                        <span><i class="fas fa-heart" style="color:var(--accent-3);"></i> Made in India</span>
+                        <span><i class="fas fa-code-branch"></i> Open Source</span>
+                    </div>
+                </div>
+                <div class="about-stats-box">
+                    <div><span>100+</span><small>Tools</small></div>
+                    <div><span>0</span><small>Server Requests</small></div>
+                    <div><span>∞</span><small>Free to Use</small></div>
+                </div>
+            </div>
+        </section>
+        <!-- ====== FOOTER ====== -->
+        <footer class="footer">
+            <div class="made-with">
+                <i class="fas fa-heart"></i> DevKit &bull; 100+ tools for developers
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fa-solid fa-circle-info"></i> About</a>
+                <a href="#"><i class="fas fa-blog"></i> Blog</a>
+                <a href="#"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+            <span style="font-size:0.7rem;opacity:0.5;">&copy; 2026 DevKit</span>
+        </footer>
+
+    </div>
+
+    <script src="../nav.js"></script>
+    <script src="../utils.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
